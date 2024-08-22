@@ -1,0 +1,12 @@
+{
+  "Author": "Adalyia",
+  "Name": "RaidNotes",
+  "Punchline": "Dynamic encounter notes.",
+  "Description": "Dynamic encounter notes for that reminder you so sorely need. /notes",
+  "ApplicableVersion": "any",
+  "Tags": [
+    "notes",
+    "raids",
+    "combat"
+  ]
+}
