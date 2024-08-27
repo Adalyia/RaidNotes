@@ -16,6 +16,7 @@ public class Configuration : IPluginConfiguration
     public bool GlobalEnable { get; set; } = true;
     public bool NoteWindowLocked { get; set; } = false;
     public bool HiddenOutsideCombat { get; set; } = false;
+    public bool LinesHiddenPastTime { get; set; } = false;
 
 
     public Dictionary<uint, ZoneSettings> Notes = [];

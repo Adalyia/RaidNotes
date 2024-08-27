@@ -44,6 +44,9 @@ public sealed class Plugin : IDalamudPlugin
     // Zone cache
     public static List<Zone> Zones { get; set; } = [];
 
+    // Combat Time - No idea if there's a better way of doing this
+    public DateTime? CombatStartTime { get; set; }
+
 
     public Plugin()
     {
@@ -86,6 +89,14 @@ public sealed class Plugin : IDalamudPlugin
     {
         // TODO: Dynamic timers/hidden note lines based on combat time elapsed
         if (flag != ConditionFlag.InCombat) return;
+        if (value)
+        {
+            CombatStartTime = DateTime.Now;
+        }
+        else
+        {
+            CombatStartTime = null;
+        }
         DisplayNoteWindow();
         Log.Debug($"InCombat: {value}");
     }
@@ -95,25 +106,29 @@ public sealed class Plugin : IDalamudPlugin
         //// Auto-open main ui on load, this is only for testing purposes
         //ToggleMainUI();
         //ToggleConfigUI();
-
+        SortZones();
         PushNote();
         Log.Debug("Ready!");
     }
 
     private void OnLogin()
     {
+        CombatStartTime = null;
         SortZones(ClientState.TerritoryType);
         PushNote();
+        
     }
 
     private void OnLogout()
     {
+        CombatStartTime = null;
         SortZones(0);
         DisplayNoteWindow();
     }
 
     private void OnTerritoryChanged(ushort zoneId)
     {
+        CombatStartTime = null;
         SortZones(zoneId);
         PushNote(zoneId);
     }

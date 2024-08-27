@@ -47,6 +47,15 @@ public class ConfigWindow : Window, IDisposable
             plugin.DisplayNoteWindow();
         }
 
+        // Whether lines should be hidden past their time
+        var linesHiddenPastTime = config.LinesHiddenPastTime;
+        if (ImGui.Checkbox("Hide Lines Past Combat Time", ref linesHiddenPastTime))
+        {
+            config.LinesHiddenPastTime = linesHiddenPastTime;
+            config.Save();
+            plugin.DisplayNoteWindow();
+        }
+
         // Locks/Unlocks the note window allowing it to be repositioned/resized
         var noteWindowLocked = config.NoteWindowLocked;
         if (ImGui.Checkbox("Lock Note Window", ref noteWindowLocked))
