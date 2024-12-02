@@ -4,7 +4,6 @@ using Dalamud.Plugin;
 using System.IO;
 using Dalamud.Interface.Windowing;
 using Dalamud.Plugin.Services;
-using Lumina.Excel.GeneratedSheets;
 using RaidNotes.Models;
 using RaidNotes.Windows;
 using Dalamud.Game.ClientState.Conditions;
@@ -14,6 +13,7 @@ using Dalamud.Utility;
 using System;
 using FFXIVClientStructs.FFXIV.Client.Game.Character;
 using System.Runtime.CompilerServices;
+using Lumina.Excel.Sheets;
 
 namespace RaidNotes;
 
@@ -81,7 +81,7 @@ public sealed class Plugin : IDalamudPlugin
         ClientState.Logout += OnLogout;
         ClientState.Login += OnLogin;
         Condition.ConditionChange += OnConditionChange;
-
+        
         Ready();
     }
 
@@ -119,7 +119,7 @@ public sealed class Plugin : IDalamudPlugin
         
     }
 
-    private void OnLogout()
+    private void OnLogout(int type, int code)
     {
         CombatStartTime = null;
         SortZones(0);
@@ -199,9 +199,9 @@ public sealed class Plugin : IDalamudPlugin
         foreach (var zone in DataManager.GetExcelSheet<TerritoryType>()!)
         {
             var id = zone.RowId;
-            var name = zone.PlaceName.Value?.Name.ToString() ?? string.Empty;
+            var name = zone.PlaceName.Value.Name.ToString() ?? string.Empty;
             if (name == string.Empty) continue; // if the name of the zone is empty we can safely skip it
-            var contentFinderCondition = zone.ContentFinderCondition.Value?.Name.ToString() ?? string.Empty;
+            var contentFinderCondition = zone.ContentFinderCondition.Value.Name.ToString() ?? string.Empty;
             var fullName = (contentFinderCondition == string.Empty) ? name : $"{name} ({contentFinderCondition})";
 
             zones.Add(new Zone(id, fullName));
