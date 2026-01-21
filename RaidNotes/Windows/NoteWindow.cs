@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Numerics;
 using System.Text.RegularExpressions;
 using Dalamud.Interface.Windowing;
-using ImGuiNET;
+using Dalamud.Bindings.ImGui;
 
 namespace RaidNotes.Windows;
 
