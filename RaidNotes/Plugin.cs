@@ -126,7 +126,7 @@ public sealed class Plugin : IDalamudPlugin
         DisplayNoteWindow();
     }
 
-    private void OnTerritoryChanged(ushort zoneId)
+    private void OnTerritoryChanged(uint zoneId)
     {
         CombatStartTime = null;
         SortZones(zoneId);
@@ -210,7 +210,7 @@ public sealed class Plugin : IDalamudPlugin
         return zones;
     }
 
-    public void SortZones(ushort zoneId)
+    public void SortZones(uint zoneId)
     {
         // Sort zones by provided zoneId, enabled zones, then by Id
         Zones.Sort((x, y) => {
@@ -235,7 +235,7 @@ public sealed class Plugin : IDalamudPlugin
         SortZones(ClientState.TerritoryType);
     }
 
-    public void PushNote(ushort zoneId)
+    public void PushNote(uint zoneId)
     {
         // Update visibility of the note window whenever we alter it's contents
         DisplayNoteWindow();
